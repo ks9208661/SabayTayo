@@ -30,7 +30,7 @@ define ( 'DEFAULT_TIMEZONE', 'Asia/Manila' );
 define ( 'DEFAULT_TIMEZONE_OFFSET', '+08:00' );
 define ( 'INCOMING_TEXTS_DIR', WORKING_DIR . 'tb-in1/' );
 define ( 'PROCESSED_TEXTS_DIR', WORKING_DIR . 'tb-proc1/' );
-define ( 'GLOBE_APP_NUMBER', '9015' );
+define ( 'GLOBE_APP_NUMBER', '5407' );
 define ( 'TOKEN_SEPARATOR', "|||" );
 define ( 'PARAM_SEPARATOR', "/" );
 define ( 'ST_POLLER', WORKING_DIR . 'tb-sabaytayo-poller1.php' );
@@ -185,6 +185,7 @@ function validate_text_input($text) {
 		case 'WEATHER' :
 			// check if second token either FORECAST or CURRENT
 			// check if third token is an existing port
+			$em = 'weather function';
 			break;
 		case 'BOATDRIVER' :
 			// check if second token is an existing Port
@@ -192,12 +193,11 @@ function validate_text_input($text) {
 			// BOATDRIVER/PHPLWCRN/list
 			// BOATDRIVER/PHPLWCRN/add/Juan dela Cruz/Calachuchi/10 (phone number automatically associated with boat)
 			// BOATDRIVER/PHPLWCRN/remove (since there can only be 1 boat per phone number, automatically remove boat associated with current number)
+			$em = 'boatdriver function';
 			break;
 		case 'TRIPS' :
 			// check if second token is an existing port
-			break;
-		case 'EVERYTHING ELSE' :
-			// reject input
+			$em = 'boat trips function';
 			break;
 		default:
 			$em = "Invalid text input.";
