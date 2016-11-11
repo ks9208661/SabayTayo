@@ -100,17 +100,87 @@ function send_sms($phone_number, $message) {
 	file_put_contents ( $logfilename, $message );
 }
 
+// parameter checking of text message
+function isvalid($item, $type) {
+	$isvalid = 0;
+
+	// $type can be port, date, time, pax, and notes
+	switch ($type) {
+		case 'port' :
+			$isvalid = preg_match ( "#^[0-9a-zA-Z]+$#", $item );
+			break;
+		case 'date' :
+			if ($item == '') {
+				$isvalid = 1;
+			} else {
+				$isvalid = preg_match ( "#^[0-9]{4}\-((0?[1-9])|(10)|(11)|(12))\-([0-3]?[0-9])$#", $item );
+			}
+			break;
+		case 'time' :
+			if ($item == '') {
+				$isvalid = 1;
+			} else {
+				$isvalid = preg_match ( "#^(([0-1]?[0-9])|(20)|(21)|(22)|(23)):([0-5][0-9])$#", $item );
+			}
+			break;
+		case 'pax' :
+			$isvalid = preg_match ( "#^[0-9]+$#", $item );
+			// if (! preg_match("#^[0-9]+$#", $item))
+			// $isvalid = 0;
+			break;
+	}
+	;
+
+	// echo $isvalid;
+	return ($isvalid);
+}
+
+
+
+
 /* add coomment here */
-function validate_input($text) {
+function validate_text_input($text) {
 	global $filehandle, $subscriber_number;
 	
+	$em = '';
 	$sms_tokens = explode ( PARAM_SEPARATOR, $text );
 	switch (strtoupper ( $sms_tokens [0] )) {
 		case 'SABAYTAYO' :
-			// count number of parameters; minimum 6
-			// if minimum not met, reject input
-			// check syntax, e.g. date and time formats, pax must be a number, no special characters in notes, etc.
-			// check if ports exist
+			// filter 1: num of parameters must be 6-7. The 'notes' field is optional.
+			if (count ( $parameters ) < 6) {
+				$em = "Message must follow the following pattern (case insensitive): SABAYTAYO/origin/destination/departure date in YYYY-MM-DD format/latest departure time in HH:mm format, military time/number of passengers/notes. Ex 1: SABAYTAYO/PHMDRPIN/PHRMBSBL/2017-01-31/16:00/3/can leave as early as 14:00";
+				break;
+			}
+				
+			// filter 2: parameters must be in the right format
+			$port_orig = strtoupper ( $parameters [1] );
+			$port_dest = strtoupper ( $parameters [2] );
+			$dept_date = $parameters [3];
+			$dept_time = $parameters [4];
+			$pax = $parameters [5];
+			$notes = $parameters [6];
+			
+			if (! isvalid ( $port_orig, 'port' )) {
+				$em .= "Origin not in list. Pls refer to list of valid ports. ";
+			}
+			
+			if (! isvalid ( $port_dest, 'port' )) {
+				$em .= "Destination not in list. Pls refer to list of valid ports. ";
+			}
+			
+			if (! isvalid ( $dept_date, 'date' )) {
+				$em .= "Date format must be YYYY-MM-DD, ex. 2016-01-13 for 13 January 2016. ";
+			}
+			
+			if (! isvalid ( $dept_time, 'time' )) {
+				$em .= "Time format must be HH:mm, military time, ex. 13:45 for 1:45 PM. ";
+			}
+			
+			if (! isvalid ( $pax, 'pax' )) {
+				$em .= "Number of passengers must be a whole number. ";
+			}
+			
+			// do something for the optional notes field to prevent SQL injection!!!
 			break;
 		case 'WEATHER' :
 			// check if second token either FORECAST or CURRENT
@@ -129,7 +199,11 @@ function validate_input($text) {
 		case 'EVERYTHING ELSE' :
 			// reject input
 			break;
+		default:
+			$em = "Invalid text input."
+			break;
 	}
+	return $em;
 }
 
 /**
