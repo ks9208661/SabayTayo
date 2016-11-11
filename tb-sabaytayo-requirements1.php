@@ -18,9 +18,9 @@
 define ( 'APP_NAME', 'sabaytayo' );
 define ( 'DEBUG', true );
 // ##################################### Switch in Server
-// define ( 'WORKING_DIR', '/kunden/homepages/41/d579830064/htdocs/clickandbuilds/SabayTayo/' );
+define ( 'WORKING_DIR', '/kunden/homepages/41/d579830064/htdocs/clickandbuilds/SabayTayo/' );
 define ( 'PHP_FULL_PATH', '/usr/bin/php5.5-cli' );
-define ( 'WORKING_DIR', './' );
+// define ( 'WORKING_DIR', './' );
 define ( 'WP_LOAD_FILE', WORKING_DIR . 'wp-load.php' );
 define ( 'LOG_DIR', WORKING_DIR . 'tb-logs1/' );
 // define ( 'LOG_FILE', LOG_DIR . APP_NAME . '-subscriber-consent.log' );

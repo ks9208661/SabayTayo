@@ -11,78 +11,11 @@
  * Assumption: file has already been checked for errors and possible cracking attempts. 
  ***************************************************************/
 
-/**
- * *************************************************************
- * CONSTANTS - Begin
- * **************************************************************
- */
-// define ( 'APP_NAME', 'sabaytayo' );
-// define ( 'DEBUG', true );
-// define ( 'TOKEN_SEPARATOR', "|||" );
-// define ( 'PARAM_SEPARATOR', "/" );
-// define ( 'WORKING_DIR', '/kunden/homepages/41/d579830064/htdocs/clickandbuilds/SabayTayo/' );
-// define ( 'LOG_DIR', WORKING_DIR . 'tb-logs/' );
-// define ( 'LOG_FILE', LOG_DIR . APP_NAME . '.log' );
-// define ( 'QUERY_FILE', WORKING_DIR . 'queries.sql' );
-// define ( 'DEFAULT_TIMEZONE', 'Asia/Manila' );
-// define ( 'DEFAULT_TIMEZONE_OFFSET', '+08:00' );
-// define ( 'TIME_WINDOW', 1209600 ); // 2 weeks
-// define ( 'TRIPS_TABLE', 'st_trips' );
-// define ( 'GLOBE_APP_NUMBER', '3363' );
-// define ( 'SUBSCRIBER_TABLE', 'st_member_mobiles' );
-
-/**
- * *************************************************************
- * CONSTANTS - End
- * **************************************************************
- */
 
 /**
  * *************************************************************
  * FUNCTIONS - Begin
  * **************************************************************
- */
-
-/*
- * // load Wordpress environment to access mySQL underneath
- * function find_wordpress_base_path() {
- * $dir = dirname ( __FILE__ );
- * do {
- * // it is possible to check for other files here
- * if (file_exists ( $dir . "/wp-config.php" )) {
- * return $dir;
- * }
- * } while ( $dir = realpath ( "$dir/.." ) );
- * return null;
- * }
- *
- * // get access token of the subscriber number
- * function get_access_token($phone_number) {
- * global $handle, $wpdb;
- *
- * $query = "SELECT access_token FROM " . SUBSCRIBER_TABLE . " WHERE subscriber_number = '$phone_number'";
- * if (DEBUG) {
- * fwrite ( $handle, "SQL QUERY: $query\n" );
- * }
- * $results = $wpdb->get_results ( $query );
- * $tok = $results [0]->access_token;
- * if (DEBUG) {
- * fwrite ( $handle, "ACCESS TOKEN: $tok\n" );
- * }
- * return $tok;
- * }
- * function send_sms($phone_number, $message) {
- * global $handle, $globe, $timestamp;
- *
- * $sms = $globe->sms ( GLOBE_APP_NUMBER );
- * $acctok = get_access_token ( $phone_number );
- * $response = $sms->sendMessage ( $acctok, $phone_number, $message );
- * if (DEBUG) {
- * fwrite ( $handle, "$timestamp: SMS Response to $phone_number = $message\n" );
- * }
- * $logfilename = LOG_DIR . "$timestamp.$phone_number.response";
- * file_put_contents ( $logfilename, $message );
- * }
  */
 
 /* put some comments here */

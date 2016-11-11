@@ -19,10 +19,10 @@ global $wpdb;
 $filehandle = fopen ( LOG_FILE, 'a' ) or die ( 'Cannot open file:  ' . LOG_FILE );
 
 // ##################################### Switch in Server
-// $access_token = $_GET ["access_token"];
-// $subscriber_number = "+63" . $_GET ["subscriber_number"];
-$access_token = "3djfkdjfkdjf";
-$subscriber_number = "+639293701284";
+$access_token = $_GET ["access_token"];
+$subscriber_number = "+63" . $_GET ["subscriber_number"];
+// $access_token = "3djfkdjfkdjf";
+// $subscriber_number = "+639293701284";
 
 // save access token and subscriber number in database
 $query = " SELECT * FROM " . SUBSCRIBER_TABLE . " WHERE subscriber_number = '$subscriber_number' ";

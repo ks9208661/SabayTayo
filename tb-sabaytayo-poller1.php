@@ -15,34 +15,6 @@
 
 /**
  * *************************************************************
- * CONSTANTS - Begin
- * **************************************************************
- */
-
-// define('APP_NAME', 'sabaytayo' );
-// define('DEBUG', true );
-// define('WORKING_DIR', '/kunden/homepages/41/d579830064/htdocs/clickandbuilds/SabayTayo/' );
-// define('INCOMING_TEXTS_DIR', WORKING_DIR.'tb-in/' );
-// define('PROCESSED_TEXTS_DIR', WORKING_DIR.'tb-proc/' );
-// define('LOG_DIR', WORKING_DIR.'tb-logs/' );
-// define('LOG_FILE', LOG_DIR.APP_NAME.'.log' );
-// define('GLOBE_APP_NUMBER', '0465');
-// define('LOCK_FILE', WORKING_DIR.APP_NAME.'.lock');
-// define('QUERY_FILE', WORKING_DIR.'queries.sql' );
-// define('RESPONSE_SMS_PRE', 'TY from SABAYTAYO! ' );
-// define('RESPONSE_SMS_POST', '' );
-// define('PHP_FULL_PATH', '/usr/bin/php5.5-cli' );
-// define('ST_PROCESSOR_FILE', WORKING_DIR.'tb-sabaytayo-processor.php' );
-// define('SUBSCRIBER_TABLE', 'st_member_mobiles' );
-
-/**
- * *************************************************************
- * CONSTANTS - End
- * **************************************************************
- */
-
-/**
- * *************************************************************
  * MAIN PROGRAM - Begin
  * **************************************************************
  */

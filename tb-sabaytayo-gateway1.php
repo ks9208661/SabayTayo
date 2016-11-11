@@ -13,46 +13,9 @@
 
 /**
  * *************************************************************
- * CONSTANTS - Begin
- * **************************************************************
- */
-// define ( 'APP_NAME', 'sabaytayo' );
-// define ( 'DEBUG', true );
-// define ( 'DEFAULT_TIMEZONE', 'Asia/Manila' );
-// define ( 'DEFAULT_TIMEZONE_OFFSET', '+08:00' );
-// define ( 'WORKING_DIR', '/kunden/homepages/41/d579830064/htdocs/clickandbuilds/SabayTayo/' );
-// define ( 'LOG_DIR', WORKING_DIR . 'tb-logs/' );
-// define ( 'LOG_FILE', LOG_DIR . APP_NAME . '.log' );
-// define ( 'INCOMING_TEXTS_DIR', WORKING_DIR . 'tb-in/' );
-// define ( 'GLOBE_APP_NUMBER', '0465' );
-// define ( 'TOKEN_SEPARATOR', "|||" );
-// define ( 'PHP_FULL_PATH', '/usr/bin/php5.5-cli' );
-// define ( 'ST_POLLER', WORKING_DIR . 'tb-sabaytayo-poller.php' );
-// define ( 'SUBSCRIBER_TABLE', 'st_member_mobiles' );
-
-/**
- * *************************************************************
- * CONSTANTS - End
- * **************************************************************
- */
-
-/**
- * *************************************************************
  * FUNCTIONS - Begin
  * **************************************************************
  */
-
-// // load Wordpress environment to access mySQL underneath
-// function find_wordpress_base_path() {
-// $dir = dirname ( __FILE__ );
-// do {
-// // it is possible to check for other files here
-// if (file_exists ( $dir . "/wp-config.php" )) {
-// return $dir;
-// }
-// } while ( $dir = realpath ( "$dir/.." ) );
-// return null;
-// }
 
 // parameter checking of text message
 function isvalid($item, $type) {
@@ -88,7 +51,6 @@ function isvalid($item, $type) {
 	// echo $isvalid;
 	return ($isvalid);
 }
-
 
 // put comment here
 function syntax_error($t) {
@@ -155,7 +117,6 @@ function syntax_error($t) {
 // General prep work
 require_once ('tb-sabaytayo-requirements1.php');
 require_once (WP_LOAD_FILE);
-// global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header, $wpdb;
 global $wpdb;
 global $port_orig, $port_dest, $dept_date, $dept_time, $pax, $notes;
 
@@ -174,44 +135,44 @@ if (DEBUG) {
 	fwrite ( $filehandle, "Timestamp = $timestamp\n" );
 }
 
-// // Prep for sending SMS via Globe API
-// session_start ();
-// require ('api/PHP/src/GlobeApi.php');
-// $globe = new GlobeApi ( 'v1' );
+// Prep for sending SMS via Globe API
+session_start ();
+require_once ('api/PHP/src/GlobeApi.php');
+$globe = new GlobeApi ( 'v1' );
 
-// // get json object which contains the text message and metadata; 1 object per SMS batch (can be 1-4 individual SMS depending on length of message
-// $json = file_get_contents ( 'php://input' );
-// $json = stripslashes ( $json );
-// $jsonvalues = json_decode ( $json, true );
+// get json object which contains the text message and metadata; 1 object per SMS batch (can be 1-4 individual SMS depending on length of message
+$json = file_get_contents ( 'php://input' );
+$json = stripslashes ( $json );
+$jsonvalues = json_decode ( $json, true );
 
-// // get mobile number. NOTE: senderAddr ADDS A "TEL:" STRING TO THE PHONE NUMBER
-// $subscriber_number = $jsonvalues [inboundSMSMessageList] [inboundSMSMessage] [0] [senderAddress];
-// $subscriber_number = substr ( $subscriber_number, 4 ); // remove the "tel:" prefix from the string
-// if (DEBUG) {
-// 	echo "Subscriber Number = $subscriber_number\n";
-// 	fwrite ( $handle, "Subscriber Number = $subscriber_number\n" );
-// }
+// get mobile number. NOTE: senderAddr ADDS A "TEL:" STRING TO THE PHONE NUMBER
+$subscriber_number = $jsonvalues [inboundSMSMessageList] [inboundSMSMessage] [0] [senderAddress];
+$subscriber_number = substr ( $subscriber_number, 4 ); // remove the "tel:" prefix from the string
+if (DEBUG) {
+	echo "Subscriber Number = $subscriber_number\n";
+	fwrite ( $handle, "Subscriber Number = $subscriber_number\n" );
+}
 
-// // get text message. Rebuild if entire message is broken into 2-4 SMSes
-// $c = $jsonvalues [inboundSMSMessageList] [numberOfMessagesInThisBatch];
-// // echo "Number of messages in batch = $c\n";
-// if (DEBUG) {
-// 	echo "$timestamp: Number of messages in batch = $c\n";
-// 	fwrite ( $handle, "$timestamp: Number of messages in batch = $c\n" );
-// }
-// $text = '';
-// for($i = 0; $i < $c; $i ++) {
-// 	// get text message
-// 	$text .= $jsonvalues [inboundSMSMessageList] [inboundSMSMessage] [$i] [message];
-// }
-// if (DEBUG) {
-// 	echo "$timestamp: Text message = $text\n";
-// 	fwrite ( $handle, "$timestamp: Text message = $text\n" );
-// }
+// get text message. Rebuild if entire message is broken into 2-4 SMSes
+$c = $jsonvalues [inboundSMSMessageList] [numberOfMessagesInThisBatch];
+// echo "Number of messages in batch = $c\n";
+if (DEBUG) {
+	echo "$timestamp: Number of messages in batch = $c\n";
+	fwrite ( $handle, "$timestamp: Number of messages in batch = $c\n" );
+}
+$text = '';
+for($i = 0; $i < $c; $i ++) {
+	// get text message
+	$text .= $jsonvalues [inboundSMSMessageList] [inboundSMSMessage] [$i] [message];
+}
+if (DEBUG) {
+	echo "$timestamp: Text message = $text\n";
+	fwrite ( $handle, "$timestamp: Text message = $text\n" );
+}
 
 // ########################## Change in Server
-$subscriber_number = $argv[1];
-$text = $argv[2];
+// $subscriber_number = $argv[1];
+// $text = $argv[2];
 
 // // validate text message; if wrongly formatted, text user then quit program
 // $se = syntax_error ( $text );
@@ -229,6 +190,7 @@ if (DEBUG) {
 
 // exec(PHP_FULL_PATH.' '.ST_POLLER);
 // if (DEBUG) {
+// echo "$timestamp: ".ST_POLLER." executed.\n";
 // fwrite($handle, "$timestamp: ".ST_POLLER." executed.\n");
 // }
 
