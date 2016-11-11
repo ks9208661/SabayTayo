@@ -147,18 +147,18 @@ function validate_text_input($text) {
 	switch (strtoupper ( $sms_tokens [0] )) {
 		case 'SABAYTAYO' :
 			// filter 1: num of parameters must be 6-7. The 'notes' field is optional.
-			if (count ( $parameters ) < 6) {
+			if (count ( $sms_tokens ) < 6) {
 				$em = "Message must follow the following pattern (case insensitive): SABAYTAYO/origin/destination/departure date in YYYY-MM-DD format/latest departure time in HH:mm format, military time/number of passengers/notes. Ex 1: SABAYTAYO/PHMDRPIN/PHRMBSBL/2017-01-31/16:00/3/can leave as early as 14:00";
 				break;
 			}
 				
 			// filter 2: parameters must be in the right format
-			$port_orig = strtoupper ( $parameters [1] );
-			$port_dest = strtoupper ( $parameters [2] );
-			$dept_date = $parameters [3];
-			$dept_time = $parameters [4];
-			$pax = $parameters [5];
-			$notes = $parameters [6];
+			$port_orig = strtoupper ( $sms_tokens [1] );
+			$port_dest = strtoupper ( $sms_tokens [2] );
+			$dept_date = $sms_tokens [3];
+			$dept_time = $sms_tokens [4];
+			$pax = $sms_tokens [5];
+			$notes = $sms_tokens [6];
 			
 			if (! isvalid ( $port_orig, 'port' )) {
 				$em .= "Origin not in list. Pls refer to list of valid ports. ";
