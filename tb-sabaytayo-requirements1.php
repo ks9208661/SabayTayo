@@ -200,7 +200,7 @@ function validate_text_input($text) {
 			// reject input
 			break;
 		default:
-			$em = "Invalid text input."
+			$em = "Invalid text input.";
 			break;
 	}
 	return $em;
