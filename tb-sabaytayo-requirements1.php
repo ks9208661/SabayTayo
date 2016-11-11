@@ -34,12 +34,12 @@ define ( 'GLOBE_APP_NUMBER', '9015' );
 define ( 'TOKEN_SEPARATOR', "|||" );
 define ( 'PARAM_SEPARATOR', "/" );
 define ( 'ST_POLLER', WORKING_DIR . 'tb-sabaytayo-poller1.php' );
-define ( 'QUERY_FILE', WORKING_DIR . 'queries.sql' );
+define ( 'QUERY_FILE', WORKING_DIR . 'queries1.sql' );
 define ( 'TIME_WINDOW', 1209600 ); // 2 weeks
 define ( 'TRIPS_TABLE', 'st_trips1' );
 define ( 'RESPONSE_SMS_PRE', 'TY from SABAYTAYO! ' );
 define ( 'RESPONSE_SMS_POST', '' );
-define ( 'LOCK_FILE', WORKING_DIR . APP_NAME . '.lock' );
+define ( 'LOCK_FILE', WORKING_DIR . APP_NAME . '1.lock' );
 define ( 'ST_PROCESSOR_FILE', WORKING_DIR . 'tb-sabaytayo-processor1.php' );
 define ( 'HTTP_HOST', 'sabaytayo.inourshoes.info' );
 
