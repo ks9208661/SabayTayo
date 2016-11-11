@@ -115,15 +115,15 @@ $subscriber_number = $jsonvalues [inboundSMSMessageList] [inboundSMSMessage] [0]
 $subscriber_number = substr ( $subscriber_number, 4 ); // remove the "tel:" prefix from the string
 if (DEBUG) {
 	echo "Subscriber Number = $subscriber_number\n";
-	fwrite ( $handle, "Subscriber Number = $subscriber_number\n" );
+	fwrite ( $filehandle, "Subscriber Number = $subscriber_number\n" );
 }
 
 // get text message. Rebuild if entire message is broken into 2-4 SMSes
 $c = $jsonvalues [inboundSMSMessageList] [numberOfMessagesInThisBatch];
-// echo "Number of messages in batch = $c\n";
+echo "Number of messages in batch = $c\n";
 if (DEBUG) {
 	echo "$timestamp: Number of messages in batch = $c\n";
-	fwrite ( $handle, "$timestamp: Number of messages in batch = $c\n" );
+	fwrite ( $filehandle, "$timestamp: Number of messages in batch = $c\n" );
 }
 $text = '';
 for($i = 0; $i < $c; $i ++) {
@@ -132,7 +132,7 @@ for($i = 0; $i < $c; $i ++) {
 }
 if (DEBUG) {
 	echo "$timestamp: Text message = $text\n";
-	fwrite ( $handle, "$timestamp: Text message = $text\n" );
+	fwrite ( $filehandle, "$timestamp: Text message = $text\n" );
 }
 
 // ########################## Change in Server
